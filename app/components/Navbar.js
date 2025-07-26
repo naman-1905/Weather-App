@@ -1,6 +1,7 @@
 "use client";
+
 import React from 'react';
-import { SunMedium, MapPin, LocateFixed } from 'lucide-react';
+import { SunMedium, MapPin } from 'lucide-react';
 import DateTimeDisplay from './DayDate';
 import useIPLocation from './IPLocation';
 

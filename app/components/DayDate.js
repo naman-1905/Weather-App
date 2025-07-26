@@ -3,11 +3,11 @@
 import React, { useEffect, useState } from 'react';
 
 function DateTimeDisplay() {
-  const [dateTime, setDateTime] = useState(new Date());
+  const [dateTime, setDateTime] = useState(null);
 
   useEffect(() => {
+    setDateTime(new Date());
 
-    
     const interval = setInterval(() => {
       setDateTime(new Date());
     }, 1000);
@@ -15,10 +15,11 @@ function DateTimeDisplay() {
     return () => clearInterval(interval);
   }, []);
 
-  const options = { weekday: 'long' };
-  const day = dateTime.toLocaleDateString(undefined, options);
-  const date = dateTime.toLocaleDateString(); 
-  const time = dateTime.toLocaleTimeString(); 
+  if (!dateTime) return null;
+
+  const day = dateTime.toLocaleDateString('en-US', { weekday: 'long' });
+  const date = dateTime.toLocaleDateString('en-US'); // fix locale explicitly
+  const time = dateTime.toLocaleTimeString('en-US'); // fix locale explicitly
 
   return (
     <span className="text-gray-700 text-lg items-center flex flex-col gap-1">

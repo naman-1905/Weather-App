@@ -13,10 +13,10 @@ export default function Navbar() {
         
         {/* LEFT: Logo + Sun */}
         <div className="absolute left-4 flex items-center gap-2">
-          <h2 className="text-gray-600 text-2xl font-bold whitespace-nowrap">
+          <h2 className="text-gray-600 text-2xl flex justify-start font-bold whitespace-nowrap">
             Half Skirmish Weather App
           </h2>
-          <SunMedium className="text-orange-300 h-8 w-8" />
+          <SunMedium className="text-orange-300 h-16 w-16" />
         </div>
 
         {/* CENTER: Date & Time */}

@@ -1,16 +1,27 @@
+// IPLocation.js
 "use client";
 
 import { useEffect, useState } from 'react';
 
 function useIPLocation() {
-  const [location, setLocation] = useState({ city: '', country: '' });
+  const [location, setLocation] = useState({
+    city: '',
+    country: '',
+    lat: null,
+    lon: null,
+  });
 
   useEffect(() => {
     fetch('http://ip-api.com/json/')
       .then(res => res.json())
       .then(data => {
         if (data.status === 'success') {
-          setLocation({ city: data.city, country: data.country });
+          setLocation({
+            city: data.city,
+            country: data.country,
+            lat: data.lat,
+            lon: data.lon,
+          });
         }
       })
       .catch(console.error);

@@ -68,7 +68,7 @@ function WeatherChart() {
         <div className="text-red-400 mt-4">Could not load historical weather data. The API plan may not include history, or data may be unavailable.</div>
       )}
 
-      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
+      <div className="flex flex-nowrap overflow-x-auto gap-4 pb-4">
         {historicalData.map((hour, index) => {
           // 4. Use the correct fields from the new API response
           const date = new Date(hour.time_epoch * 1000);
@@ -76,9 +76,9 @@ function WeatherChart() {
 
           return (
             <div
-              key={index}
-              className="bg-gray-800 bg-opacity-50 border border-gray-600 rounded-lg p-4 text-center shadow-md text-white"
-            >
+            key={index}
+            className="flex-shrink-0 w-28 bg-gray-800 bg-opacity-50 border border-gray-600 rounded-lg p-4 text-center shadow-md text-white"
+          >
               <div className="font-semibold text-sm">{time}</div>
               <img src={hour.condition.icon} alt={hour.condition.text} className="mx-auto my-1" />
               <div className="text-lg font-bold">{Math.round(hour.temp_c)}°C</div>

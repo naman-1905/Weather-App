@@ -4,7 +4,7 @@ import React from 'react';
 import { SunMedium, MapPin, CloudIcon } from 'lucide-react';
 import DateTimeDisplay from './DayDate';
 import useIPLocation from './IPLocation';
-import useWeather from './useWeather';
+import useWeather from './LocationTemp';
 
 export default function Navbar() {
   const { city, country, lat, lon } = useIPLocation();

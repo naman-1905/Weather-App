@@ -16,20 +16,28 @@ export default function Navbar() {
     <nav className="shadow-sm sticky top-0 bg-white w-full px-4 py-4 z-50">
       <div className="relative h-[80px] w-full max-w-screen-xl mx-auto px-4 flex items-center justify-between">
         
-        {/* Weather Icon */}
         <div className="absolute left-4 flex items-center gap-2">
-          <h2 className="text-gray-600 text-2xl flex justify-start font-bold whitespace-nowrap">
-            Half Skirmish Weather App
+          {/* Mobile heading */}
+          <h2 className="flex md:hidden text-gray-600 text-xl font-bold whitespace-nowrap">
+            Weather
           </h2>
-          <SunMedium className="text-orange-300 h-16 w-16" />
+
+  {/* Desktop heading */}
+  <h2 className="hidden md:flex text-gray-600 text-2xl font-bold whitespace-nowrap">
+    Half Skirmish Weather App
+  </h2>
+
+      {/* Always show icon */}
+      <SunMedium className="text-orange-300 h-12 w-12 md:h-16 md:w-16" />
+    </div>
+
+        <div className="mx-auto hidden md:block">
+        <DateTimeDisplay />
         </div>
 
-        <div className="mx-auto">
-          <DateTimeDisplay />
-        </div>
 
         <div className="absolute right-4 flex items-center gap-3">
-          <MapPin className="text-black h-6 w-6" />
+          <MapPin className="text-black h-6 w-6 hidden md:block" />
           
           <div className="flex flex-col">
             <span className="text-black font-bold whitespace-nowrap">

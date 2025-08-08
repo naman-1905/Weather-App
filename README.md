@@ -10,7 +10,7 @@ It automatically detects your city using IP geolocation and fetches live weather
 First, clone the repository and install dependencies:
 
 ```bash
-git clone <https://github.com/naman-1905/Weather-App.git>
+git clone https://github.com/naman-1905/Weather-App.git
 cd weather-app
 npm install
 ```
@@ -55,7 +55,7 @@ NEXT_PUBLIC_WEATHER_API_KEY=your_weatherapi_key
 - **Next.js**
 - **Tailwind CSS**  
 - **WeatherAPI**  
-- **IP Geolocation API**  
+- **IP based Geolocation Detection**  
 
 ---
 

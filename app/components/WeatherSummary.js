@@ -2,15 +2,16 @@
 
 import React from "react";
 import useIPLocation from "./IPLocation";
-import useWeather from "./LocationTemp"; // updated to return both temp & humidity
+import useWeather from "./LocationTemp"; // updated to return temp, humidity, wind
 
 export default function WeatherSummary() {
   const { city, country, lat, lon } = useIPLocation();
-  const { temp, humidity } = useWeather(lat, lon);
+  const { temp, humidity, wind_kph } = useWeather(lat, lon);
 
   return (
-    <div className="w-full px-4 mt-4">
-      <div className="w-full bg-gray-900 rounded-2xl p-6 flex flex-col items-center text-white">
+    <div className="flex justify-center px-4 mt-4">
+      <div className="w-full max-w-sm border border-white border-2 rounded-2xl p-6 flex flex-col items-center text-white">
+        
         {/* Temperature */}
         <span className="text-6xl font-bold">
           {temp !== null ? `${Math.round(temp)}°C` : "..."}
@@ -25,6 +26,7 @@ export default function WeatherSummary() {
         <span className="text-sm font-light mt-1">
           Humidity: {humidity !== null ? `${humidity}%` : "..."}
         </span>
+        
       </div>
     </div>
   );

@@ -45,16 +45,30 @@ export default function Navbar() {
         </div>
 
         {/* Right Section — Weather & AQI */}
-        <div className="flex items-center gap-3">
-          <div className="flex flex-col text-right">
-            <span className="font-semibold text-blue-500">
-              Temp: {temperature !== null ? `${temperature}°C` : 'Loading...'}
-            </span>
-            <span className="font-semibold text-green-600">
-              AQI: {aqi !== null ? `${Math.round(aqi)} (${category})` : 'Loading...'}
-            </span>
-          </div>
-        </div>
+      <div className="flex items-center gap-3">
+      {aqi !== null ? (
+        <span
+          className={`
+            px-3 py-1 rounded-full font-semibold border
+            ${
+              category === 'Good'
+                ? 'border-green-500 border-2 text-white'
+                : category === 'Moderate'
+                ? 'border-yellow-500 border-2 text-white'
+                : category === 'Unhealthy'
+                ? 'border-red-500 border-2 text-white'
+                : 'border-gray-500 border-2 text-white'
+            }
+          `}
+        >
+          AQI: {Math.round(aqi)} ({category})
+        </span>
+      ) : (
+        <span className="px-3 py-1 rounded-full border border-gray-400 text-gray-400 font-semibold">
+          Loading...
+        </span>
+      )}
+    </div>
       </div>
     </nav>
   );

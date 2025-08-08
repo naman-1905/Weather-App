@@ -10,7 +10,7 @@ It automatically detects your city using IP geolocation and fetches live weather
 First, clone the repository and install dependencies:
 
 ```bash
-git clone <repository-url>
+git clone <https://github.com/naman-1905/Weather-App.git>
 cd weather-app
 npm install
 ```
@@ -60,17 +60,6 @@ NEXT_PUBLIC_IP_API_KEY=your_ip_geolocation_api_key
 
 ---
 
-## 📦 Deployment
-
-Deploy easily using [Vercel](https://vercel.com):
-
-1. Push the project to GitHub.  
-2. Import it into Vercel.  
-3. Add your environment variables in Vercel's dashboard.  
-4. Deploy and enjoy real-time weather anywhere.  
-
----
-
 ## 🔄 How It Works
 
 ```mermaid
@@ -83,8 +72,3 @@ D --> E[Display Temperature & Humidity in UI]
 
 ---
 
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
-
----

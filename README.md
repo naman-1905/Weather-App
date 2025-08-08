@@ -3,6 +3,7 @@
 A **Next.js** and **Tailwind CSS** based weather application that provides **real-time weather updates** based on your location.  
 It automatically detects your city using IP geolocation and fetches live weather conditions, including temperature, humidity, and more, from [WeatherAPI](https://www.weatherapi.com/).
 This App was created in order to understand the implementation of API keys, env.local file and async functions to return values from the JSON API Data.
+
 ---
 
 ## 🚀 Getting Started

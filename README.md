@@ -37,7 +37,6 @@ Create a `.env.local` file in the root directory and add:
 
 ```env
 NEXT_PUBLIC_WEATHER_API_KEY=your_weatherapi_key
-NEXT_PUBLIC_IP_API_KEY=your_ip_geolocation_api_key
 ```
 
 ---

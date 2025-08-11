@@ -3,8 +3,8 @@
 
 import Navbar from "./components/Navbar"
 import WeatherChart from "./components/24HData";
-import SixDayHistory from "./components/6DayHistory";
 import WeatherSummary from "./components/WeatherSummary";
+import SevenDayHistory from "./components/7DayHistory";
 export default function Home() {
 
   return (
@@ -12,7 +12,7 @@ export default function Home() {
        <Navbar/>
        <WeatherSummary/>
        <WeatherChart />
-       <SixDayHistory />
+       <SevenDayHistory/>
     </div>
   );
 }

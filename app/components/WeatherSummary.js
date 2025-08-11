@@ -10,7 +10,7 @@ export default function WeatherSummary() {
 
   return (
     <div className="flex justify-center px-4 mt-4">
-      <div className="w-full max-w-sm border border-white border-2 rounded-2xl p-6 flex flex-col items-center text-white">
+      <div className="w-full max-w-sm bg-[#1E1E1E] rounded-2xl p-6 flex flex-col items-center text-[#E0E0E0]">
         
         {/* Temperature */}
         <span className="text-6xl font-bold">
@@ -18,12 +18,12 @@ export default function WeatherSummary() {
         </span>
 
         {/* Location */}
-        <span className="text-lg font-medium mt-2">
+        <span className="text-lg font-medium mt-2 text-[#A0A0A0]">
           {city && country ? `${city}, ${country}` : "Loading location..."}
         </span>
 
         {/* Humidity */}
-        <span className="text-sm font-light mt-1">
+        <span className="text-sm font-light mt-1 text-[#A0A0A0]">
           Humidity: {humidity !== null ? `${humidity}%` : "..."}
         </span>
         

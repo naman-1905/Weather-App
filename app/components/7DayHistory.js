@@ -20,7 +20,7 @@ const DayCard = ({ dayData }) => {
   });
 
   return (
-    <div className="bg-gray-800 bg-opacity-60 border border-gray-600 rounded-lg p-4 text-center shadow-lg text-white flex flex-col justify-between h-full">
+    <div className="bg-[#121212] bg-opacity-60 border border-gray-900 rounded-lg p-4 text-center shadow-lg text-white flex flex-col justify-between h-full">
       <div>
         <p className="font-bold text-md">{formattedDate}</p>
         <img src={condition.icon} alt={condition.text} className="mx-auto my-2 h-16 w-16" />

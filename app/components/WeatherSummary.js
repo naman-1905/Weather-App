@@ -6,7 +6,7 @@ import useWeather from "./LocationTemp"; // updated to return temp, humidity, wi
 
 export default function WeatherSummary() {
   const { city, country, lat, lon } = useIPLocation();
-  const { temp, humidity, wind_kph } = useWeather(lat, lon);
+  const { temp, humidity } = useWeather(lat, lon);
 
   return (
     <div className="flex justify-center px-4 mt-4">
@@ -26,7 +26,6 @@ export default function WeatherSummary() {
         <span className="text-sm font-light mt-1 text-[#A0A0A0]">
           Humidity: {humidity !== null ? `${humidity}%` : "..."}
         </span>
-        
       </div>
     </div>
   );

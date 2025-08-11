@@ -55,10 +55,10 @@ function WeatherChart() {
 
   return (
     <div className="p-6">
-      <h2 className="text-xl font-semibold mb-1 text-white">
+      <h2 className="text-xl font-semibold mb-1 text-center text-white">
         Hourly History for {location.city || 'your location'}
       </h2>
-      <p className="text-md text-gray-300 mb-4">{chartDate}</p>
+      <p className="text-md text-gray-300 text-center mb-4">{chartDate}</p>
 
       {loading && (
         <div className="text-white mt-4">Loading historical data...</div>
@@ -77,7 +77,7 @@ function WeatherChart() {
           return (
             <div
             key={index}
-            className="flex-shrink-0 w-28 bg-gray-800 bg-opacity-50 border border-gray-600 rounded-lg p-4 text-center shadow-md text-white"
+            className="flex-shrink-0 w-28 bg-[#1E1E1E] bg-opacity-50 rounded-lg p-4 text-center shadow-md text-white"
           >
               <div className="font-semibold text-sm">{time}</div>
               <img src={hour.condition.icon} alt={hour.condition.text} className="mx-auto my-1" />

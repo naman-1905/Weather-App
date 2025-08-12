@@ -37,7 +37,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 Create a `.env.local` file in the root directory and add:
 
 ```env
-NEXT_PUBLIC_WEATHER_API_KEY=your_weatherapi_key
+WEATHER_API_KEY=your_weatherapi_key
 ```
 
 ---

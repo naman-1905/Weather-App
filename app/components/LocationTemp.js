@@ -1,4 +1,4 @@
-// useWeather.js
+// components/LocationTemp.js
 "use client";
 
 import { useEffect, useState } from 'react';
@@ -9,16 +9,14 @@ export default function useWeather(lat, lon) {
   useEffect(() => {
     if (!lat || !lon) return;
 
-    const apiKey = process.env.NEXT_PUBLIC_WEATHER_KEY;
-    if (!apiKey) {
-      console.error("Weather API key is not set.");
-      return;
-    }
+    // REMOVED: No longer need the API key on the client
+    // const apiKey = process.env.NEXT_PUBLIC_WEATHER_KEY;
 
     const fetchWeather = async () => {
       try {
+        // UPDATED: The fetch URL now points to our proxy
         const response = await fetch(
-          `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lat},${lon}`
+          `/api/weather?endpoint=current.json&q=${lat},${lon}`
         );
 
         if (!response.ok) {
@@ -41,5 +39,5 @@ export default function useWeather(lat, lon) {
     fetchWeather();
   }, [lat, lon]);
 
-  return weather; // Now returns { temp, humidity }
+  return weather;
 }

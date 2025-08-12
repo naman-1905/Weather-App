@@ -1,3 +1,4 @@
+// components/AQI.js
 "use client";
 
 import { useEffect, useState } from 'react';
@@ -9,16 +10,14 @@ export default function useAQI(lat, lon) {
   useEffect(() => {
     if (!lat || !lon) return;
 
-    const apiKey = process.env.NEXT_PUBLIC_WEATHER_KEY;
-    if (!apiKey) {
-      console.error("Weather API key is not set.");
-      return;
-    }
+    // REMOVED: No longer need the API key on the client
+    // const apiKey = process.env.NEXT_PUBLIC_WEATHER_KEY;
 
     const fetchAQI = async () => {
       try {
+        // UPDATED: The fetch URL now points to our proxy and includes the 'aqi=yes' param
         const response = await fetch(
-          `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lat},${lon}&aqi=yes`
+          `/api/weather?endpoint=current.json&q=${lat},${lon}&aqi=yes`
         );
 
         if (!response.ok) {

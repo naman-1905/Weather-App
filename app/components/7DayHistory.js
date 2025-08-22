@@ -1,20 +1,21 @@
-// components/7DayHistory.js
 "use client";
 
 import { useEffect, useState } from "react";
-import useIPLocation from "./IPLocation";
+import useIPLocation from "../utils/IPLocation";
+import { fetch7DayHistory } from "../utils/fetch7DayHistory";
 
 const DayCard = ({ dayData }) => {
-  if (!dayData || !dayData.day) {
-    return null;
-  }
+  if (!dayData?.day) return null;
+
   const { date } = dayData;
   const { avgtemp_c, maxtemp_c, mintemp_c, condition } = dayData.day;
+
   const formattedDate = new Date(date).toLocaleDateString([], {
-    weekday: 'long',
-    month: 'short',
-    day: 'numeric',
+    weekday: "long",
+    month: "short",
+    day: "numeric",
   });
+
   return (
     <div className="bg-[#121212] bg-opacity-60 border border-gray-900 rounded-lg p-4 text-center shadow-lg text-white flex flex-col justify-between h-full">
       <div>
@@ -44,50 +45,25 @@ function SevenDayHistory() {
       return;
     }
 
-    const fetch7DayHistory = async () => {
-      setLoading(true);
-      setError(null);
+    const loadHistory = async () => {
       try {
-        const datePromises = [];
-        // CORRECTED LOGIC: Loop to get the last 7 days from today
-        for (let i = 1; i <= 7; i++) {
-          const date = new Date();
-          // FIX: Subtract 'i' days to get dates in the past
-          date.setDate(date.getDate() - i); 
-          const dateString = date.toISOString().split("T")[0];
-          
-          const promise = fetch(
-            `/api/weather?endpoint=history.json&q=${location.lat},${location.lon}&dt=${dateString}`
-          ).then(res => {
-            if (!res.ok) {
-              return res.json().then(err => Promise.reject(err));
-            }
-            return res.json();
-          });
-          datePromises.push(promise);
-        }
-
-        const results = await Promise.all(datePromises);
-        
-        const dailyData = results.map(result => result.forecast.forecastday[0]);
+        setLoading(true);
+        const dailyData = await fetch7DayHistory(location);
         setHistoryData(dailyData);
-
       } catch (err) {
         console.error("Failed to fetch 7-day history:", err);
-        setError(err.error?.message || "Could not load historical data. Your API plan may not support this feature.");
+        setError(err.error?.message || "Could not load historical data.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetch7DayHistory();
+    loadHistory();
   }, [location]);
 
   return (
     <div className="p-6">
-      {loading && (
-        <div className="text-white mt-4 text-center">Loading 7-day history...</div>
-      )}
+      {loading && <div className="text-white mt-4 text-center">Loading 7-day history...</div>}
       {error && (
         <div className="text-red-400 mt-4 bg-red-900 bg-opacity-50 p-4 rounded-lg">{error}</div>
       )}

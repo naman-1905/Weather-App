@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import useIPLocation from "./IPLocation";
+import useIPLocation from "../utils/IPLocation";
 import useWeather from "./LocationTemp"; // updated to return temp, humidity, wind
 
 export default function WeatherSummary() {

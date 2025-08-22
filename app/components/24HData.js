@@ -1,12 +1,10 @@
-// components/24HData.js
 "use client";
 
 import { useEffect, useState } from "react";
 import useIPLocation from "../utils/IPLocation";
+import { fetch24HHistory } from "../utils/fetch24HHistory";
 
 function WeatherChart() {
-  // REMOVED: No longer need the API key on the client
-  // const API_KEY = process.env.NEXT_PUBLIC_WEATHER_KEY;
   const location = useIPLocation();
   const [historicalData, setHistoricalData] = useState([]);
   const [chartDate, setChartDate] = useState("");
@@ -14,48 +12,21 @@ function WeatherChart() {
 
   useEffect(() => {
     if (location.lat && location.lon) {
-      const fetchHistory = async () => {
-        try {
-          const today = new Date();
-          const yesterday = new Date(today);
-          yesterday.setDate(today.getDate() - 1);
-          const dateString = yesterday.toISOString().split("T")[0];
-          setChartDate(yesterday.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
-
-          // UPDATED: The fetch URL now points to our proxy
-          const res = await fetch(
-            `/api/weather?endpoint=history.json&q=${location.lat},${location.lon}&dt=${dateString}`
-          );
-
-          if (!res.ok) {
-            const errorData = await res.json();
-            throw new Error(errorData.error.message || "Failed to fetch data");
-          }
-
-          const data = await res.json();
-          
-          if (data && data.forecast && data.forecast.forecastday && data.forecast.forecastday[0]) {
-            setHistoricalData(data.forecast.forecastday[0].hour);
-          } else {
-            console.error("Unexpected API response structure:", data);
-            setHistoricalData([]);
-          }
-
-        } catch (error) {
-          console.error("Weather API error:", error);
-        } finally {
-          setLoading(false);
-        }
+      const loadData = async () => {
+        setLoading(true);
+        const { chartDate, hourlyData } = await fetch24HHistory(location);
+        setChartDate(chartDate);
+        setHistoricalData(hourlyData);
+        setLoading(false);
       };
-
-      fetchHistory();
+      loadData();
     }
-  }, [location]); // REMOVED: API_KEY from dependency array
+  }, [location]);
 
   return (
     <div className="p-6">
       <h2 className="text-xl font-semibold mb-1 text-center text-white">
-        Hourly History for {location.city || 'your location'}
+        Hourly History for {location.city || "your location"}
       </h2>
       <p className="text-md text-gray-300 text-center mb-4">{chartDate}</p>
 
@@ -64,7 +35,9 @@ function WeatherChart() {
       )}
 
       {!loading && historicalData.length === 0 && (
-        <div className="text-red-400 mt-4">Could not load historical weather data. The API plan may not include history, or data may be unavailable.</div>
+        <div className="text-red-400 mt-4">
+          Could not load historical weather data. The API plan may not include history, or data may be unavailable.
+        </div>
       )}
 
       <div className="flex flex-nowrap overflow-x-auto gap-4 pb-4">

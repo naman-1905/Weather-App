@@ -22,10 +22,8 @@ function DateTimeDisplay() {
   const time = dateTime.toLocaleTimeString('en-US'); // fix locale explicitly
 
   return (
-    <span className="text-gray-700 text-lg items-center flex flex-col gap-1">
-      <span><strong>Day:</strong> {day}</span>
-      <span><strong>Date:</strong> {date}</span>
-      <span><strong>Time:</strong> {time}</span>
+    <span className="text-white text-lg font-bold items-center flex flex-col gap-1">
+      <span>{day}, {date}</span>
     </span>
   );
 }

@@ -9,12 +9,9 @@ export default function useWeather(lat, lon) {
   useEffect(() => {
     if (!lat || !lon) return;
 
-    // REMOVED: No longer need the API key on the client
-    // const apiKey = process.env.NEXT_PUBLIC_WEATHER_KEY;
 
     const fetchWeather = async () => {
       try {
-        // UPDATED: The fetch URL now points to our proxy
         const response = await fetch(
           `/api/weather?endpoint=current.json&q=${lat},${lon}`
         );

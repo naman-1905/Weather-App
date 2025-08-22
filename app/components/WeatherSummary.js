@@ -2,7 +2,7 @@
 
 import React from "react";
 import useIPLocation from "../utils/IPLocation";
-import useWeather from "./LocationTemp"; // updated to return temp, humidity, wind
+import useWeather from "../utils/LocationTemp"; // updated to return temp, humidity, wind
 
 export default function WeatherSummary() {
   const { city, country, lat, lon } = useIPLocation();

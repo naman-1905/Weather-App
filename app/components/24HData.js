@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import useIPLocation from "./IPLocation";
+import useIPLocation from "../utils/IPLocation";
 
 function WeatherChart() {
   // REMOVED: No longer need the API key on the client

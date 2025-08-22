@@ -3,7 +3,7 @@
 import React from 'react';
 import { SunMedium, Cloud, CloudRain, Snowflake, MapPin } from 'lucide-react';
 import useIPLocation from '../utils/IPLocation';
-import useWeather from './LocationTemp';
+import useWeather from '../utils/LocationTemp';
 import useAQI from '../utils/AQI';
 
 export default function Navbar() {

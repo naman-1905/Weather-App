@@ -39,15 +39,18 @@ pipeline {
             }
         }
 
-        stage('Rolling Restart Deployment') {
-            steps {
-                script {
-                    echo "Restarting deployment ${DEPLOYMENT_NAME} in namespace ${NAMESPACE}..."
-                    sh "kubectl rollout restart deployment/${DEPLOYMENT_NAME} -n ${NAMESPACE}"
-                    sh "kubectl rollout status deployment/${DEPLOYMENT_NAME} -n ${NAMESPACE}"
-                }
-            }
+stage('Rolling Restart Deployment') {
+    steps {
+        script {
+            echo "Restarting deployment ${DEPLOYMENT_NAME} in namespace ${NAMESPACE}..."
+            sh '''
+              export KUBECONFIG=/home/jenkins/.kube/config
+              kubectl rollout restart deployment/${DEPLOYMENT_NAME} -n ${NAMESPACE}
+              kubectl rollout status deployment/${DEPLOYMENT_NAME} -n ${NAMESPACE}
+            '''
         }
+    }
+}
 
         stage('Cleanup') {
             steps {

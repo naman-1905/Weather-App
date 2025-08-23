@@ -63,4 +63,4 @@ USER nextjs
 EXPOSE 3000
 
 # The standalone build exposes server.js as the entrypoint
-CMD ["node", "server.js"]
+CMD ["node", "server.js", "-H", "0.0.0.0"]

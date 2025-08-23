@@ -13,10 +13,9 @@ function useIPLocation() {
   useEffect(() => {
     const fetchLocation = async () => {
       try {
-        const response = await fetch('https://ip-api.com/json/', {
+        const response = await fetch('https://ipapi.co/json/', {
           headers: {
             'Accept': 'application/json',
-            'User-Agent': 'Weather-App' // Identify your application
           }
         });
 
@@ -25,18 +24,14 @@ function useIPLocation() {
         }
 
         const data = await response.json();
-        
-        if (data.status === 'success') {
-          setLocation({
-            city: data.city,
-            country: data.country,
-            lat: data.lat,
-            lon: data.lon,
-          });
-        }
+        setLocation({
+          city: data.city,
+          country: data.country_name,
+          lat: data.latitude,
+          lon: data.longitude,
+        });
       } catch (error) {
         console.error('Error fetching location:', error);
-        // Fallback to a default location or show error state
         setLocation({
           city: 'Unknown',
           country: 'Unknown',

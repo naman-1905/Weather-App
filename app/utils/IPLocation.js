@@ -1,4 +1,3 @@
-// IPLocation.js
 "use client";
 
 import { useEffect, useState } from 'react';
@@ -12,9 +11,21 @@ function useIPLocation() {
   });
 
   useEffect(() => {
-    fetch('https://ip-api.com/json/')
-      .then(res => res.json())
-      .then(data => {
+    const fetchLocation = async () => {
+      try {
+        const response = await fetch('https://ip-api.com/json/', {
+          headers: {
+            'Accept': 'application/json',
+            'User-Agent': 'Weather-App' // Identify your application
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
         if (data.status === 'success') {
           setLocation({
             city: data.city,
@@ -23,8 +34,19 @@ function useIPLocation() {
             lon: data.lon,
           });
         }
-      })
-      .catch(console.error);
+      } catch (error) {
+        console.error('Error fetching location:', error);
+        // Fallback to a default location or show error state
+        setLocation({
+          city: 'Unknown',
+          country: 'Unknown',
+          lat: null,
+          lon: null,
+        });
+      }
+    };
+
+    fetchLocation();
   }, []);
 
   return location;

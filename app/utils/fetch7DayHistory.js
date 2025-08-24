@@ -11,7 +11,7 @@ export async function fetch7DayHistory(location) {
     const dateString = date.toISOString().split("T")[0];
 
     const promise = fetch(
-      `/api/weather?endpoint=history.json&q=${location.lat},${location.lon}&dt=${dateString}`
+      `https://api.weatherapi.com/v1/history.json?key=7a559a0e1aec4d6cbc8143504250708&q=${location.lat},${location.lon}&dt=${dateString}`
     ).then(res => {
       if (!res.ok) {
         return res.json().then(err => Promise.reject(err));

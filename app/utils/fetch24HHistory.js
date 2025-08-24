@@ -20,7 +20,7 @@ export async function fetch24HHistory(location) {
         const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
 
         const res = await fetch(
-          `/api/weather?endpoint=history.json&q=${location.lat},${location.lon}&dt=${dateString}`,
+          `https://api.weatherapi.com/v1/history.json?key=7a559a0e1aec4d6cbc8143504250708&q=${location.lat},${location.lon}&dt=${dateString}`,
           { signal: controller.signal }
         );
 

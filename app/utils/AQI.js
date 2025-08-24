@@ -46,7 +46,3 @@ function mapAQICategory(pm) {
   if (pm <= 250.4) return "Very Unhealthy";
   return "Hazardous";
 }
-  if (pm <= 150.4) return "Unhealthy";
-  if (pm <= 250.4) return "Very Unhealthy";
-  return "Hazardous";
-}

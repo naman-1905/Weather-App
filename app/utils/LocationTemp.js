@@ -37,4 +37,3 @@ export default function useWeather(lat, lon) {
 
   return weather;
 }
-}

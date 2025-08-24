@@ -2,11 +2,12 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "halfskirmish_weather"
-        TAG = "latest"
-        REGISTRY = "127.0.0.1:5000"
+        IMAGE_NAME      = "halfskirmish_weather"
+        TAG             = "latest"
+        REGISTRY        = "10.243.4.236:5000"
         DEPLOYMENT_NAME = "halfskirmish-weather"
-        NAMESPACE = "apps"
+        DOCKER_HOST     = "tcp://10.243.52.185:2375"
+        APP_NETWORK     = "app"
     }
 
     stages {
@@ -32,33 +33,47 @@ pipeline {
             steps {
                 script {
                     echo 'Pushing Docker Image to Registry...'
-                    // Optional login step if auth is required:
-                    // sh "docker login ${REGISTRY} -u <username> -p <password>"
                     sh "docker push ${REGISTRY}/${IMAGE_NAME}:${TAG}"
                 }
             }
         }
 
-stage('Rolling Restart Deployment') {
-    steps {
-        script {
-            echo "Restarting deployment ${DEPLOYMENT_NAME} in namespace ${NAMESPACE}..."
-            sh '''
-              export KUBECONFIG=/home/jenkins/.kube/config
-              kubectl rollout restart deployment/${DEPLOYMENT_NAME} -n ${NAMESPACE}
-              kubectl rollout status deployment/${DEPLOYMENT_NAME} -n ${NAMESPACE}
-            '''
-        }
-    }
-}
-
-        stage('Cleanup') {
+        stage('Deploy to Remote Docker') {
             steps {
                 script {
-                    echo 'Cleaning up unused Docker resources...'
-                    // Remove dangling images (not tagged & not used by any container)
+                    echo "Deploying ${DEPLOYMENT_NAME} on remote Docker host..."
+
+                    // Create app network if not exists
+                    sh """
+                        docker -H ${DOCKER_HOST} network inspect ${APP_NETWORK} >/dev/null 2>&1 || \
+                        docker -H ${DOCKER_HOST} network create ${APP_NETWORK}
+                    """
+
+                    // Stop and remove old container if running
+                    sh """
+                        docker -H ${DOCKER_HOST} ps -q --filter name=${DEPLOYMENT_NAME} | grep -q . && \
+                        docker -H ${DOCKER_HOST} stop ${DEPLOYMENT_NAME} || true
+                    """
+                    sh """
+                        docker -H ${DOCKER_HOST} ps -aq --filter name=${DEPLOYMENT_NAME} | grep -q . && \
+                        docker -H ${DOCKER_HOST} rm ${DEPLOYMENT_NAME} || true
+                    """
+
+                    // Run new container
+                    sh """
+                        docker -H ${DOCKER_HOST} run -d --name ${DEPLOYMENT_NAME} \\
+                        --network ${APP_NETWORK} \\
+                        ${REGISTRY}/${IMAGE_NAME}:${TAG}
+                    """
+                }
+            }
+        }
+
+        stage('Cleanup Local') {
+            steps {
+                script {
+                    echo 'Cleaning up unused local Docker resources...'
                     sh "docker image prune -f"
-                    // Remove stopped containers (optional)
                     sh "docker container prune -f"
                 }
             }

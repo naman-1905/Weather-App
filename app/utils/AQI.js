@@ -10,14 +10,10 @@ export default function useAQI(lat, lon) {
   useEffect(() => {
     if (!lat || !lon) return;
 
-    // REMOVED: No longer need the API key on the client
-    // const apiKey = process.env.NEXT_PUBLIC_WEATHER_KEY;
-
     const fetchAQI = async () => {
       try {
-        // UPDATED: The fetch URL now points to our proxy and includes the 'aqi=yes' param
         const response = await fetch(
-          `/api/weather?endpoint=current.json&q=${lat},${lon}&aqi=yes`
+          `https://api.weatherapi.com/v1/current.json?key=7a559a0e1aec4d6cbc8143504250708&q=${lat},${lon}&aqi=yes`
         );
 
         if (!response.ok) {
@@ -46,6 +42,10 @@ function mapAQICategory(pm) {
   if (pm <= 12) return "Good";
   if (pm <= 35.4) return "Moderate";
   if (pm <= 55.4) return "Unhealthy (Sensitive)";
+  if (pm <= 150.4) return "Unhealthy";
+  if (pm <= 250.4) return "Very Unhealthy";
+  return "Hazardous";
+}
   if (pm <= 150.4) return "Unhealthy";
   if (pm <= 250.4) return "Very Unhealthy";
   return "Hazardous";

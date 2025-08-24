@@ -9,11 +9,10 @@ export default function useWeather(lat, lon) {
   useEffect(() => {
     if (!lat || !lon) return;
 
-
     const fetchWeather = async () => {
       try {
         const response = await fetch(
-          `/api/weather?endpoint=current.json&q=${lat},${lon}`
+          `https://api.weatherapi.com/v1/current.json?key=7a559a0e1aec4d6cbc8143504250708&q=${lat},${lon}`
         );
 
         if (!response.ok) {
@@ -37,4 +36,5 @@ export default function useWeather(lat, lon) {
   }, [lat, lon]);
 
   return weather;
+}
 }

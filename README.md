@@ -1,3 +1,6 @@
+
+![Weather App](weather.png)
+
 # 🌦 Weather App
 
 A **Next.js** and **Tailwind CSS** based weather application that provides **real-time weather updates** based on your location.  

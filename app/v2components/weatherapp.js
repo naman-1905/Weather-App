@@ -141,8 +141,7 @@ export default function WeatherDashboard() {
                   data={hourly.hourlyData.map((h) => ({
                     time: new Date(h.time).toLocaleTimeString([], {
                       hour: "numeric",
-                      minute: "2-digit",
-                      hour12: true,
+                      hour12: false,
                     }),
                     temp: h.temp_c,
                   }))}
